@@ -1,7 +1,7 @@
 <template>
   <div class="flex min-h-screen bg-gray-100">
-    <Sidebar v-if="showSidebar" />
-    <main class="flex-1">
+    <Sidebar v-if="showSidebar" class="fixed left-0 top-0 h-screen" />
+    <main class="flex-1" :class="showSidebar ? 'ml-72' : ''">
       <router-view />
     </main>
   </div>
