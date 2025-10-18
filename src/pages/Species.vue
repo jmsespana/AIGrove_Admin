@@ -1,13 +1,14 @@
 <template>
-  <div class="p-8 bg-gray-50 min-h-screen">
+  <div class="p-8 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 min-h-screen">
+    <!-- Header -->
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-800 mb-2">Mangrove Species</h1>
-      <p class="text-gray-600">Manage mangrove species database and information</p>
+      <h1 class="text-4xl font-bold text-gray-800 mb-2">🌿 Mangrove Species</h1>
+      <p class="text-gray-600">Explore and manage mangrove species information</p>
     </div>
 
-    <!-- Stats Card -->
-    <div class="mb-8">
-      <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 inline-block">
+    <!-- Stats Cards -->
+    <div class="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow">
         <div class="flex items-center gap-3">
           <div class="bg-green-100 p-3 rounded-lg">
             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -16,162 +17,152 @@
           </div>
           <div>
             <div class="text-sm text-gray-500 font-medium">Total Species</div>
-            <div class="text-2xl font-bold text-gray-800">{{ speciesList.length }}</div>
+            <div class="text-3xl font-bold text-green-600">{{ speciesList.length }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-3">
+          <div class="bg-blue-100 p-3 rounded-lg">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 font-medium">Ecosystem Value</div>
+            <div class="text-3xl font-bold text-blue-600">Critical</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-3">
+          <div class="bg-emerald-100 p-3 rounded-lg">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 font-medium">Carbon Storage</div>
+            <div class="text-3xl font-bold text-emerald-600">High</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Species Table -->
-    <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-      <!-- Header -->
-      <div class="p-6 border-b border-gray-200">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <h2 class="text-xl font-bold text-gray-800">Species Database</h2>
-            <p class="text-sm text-gray-500 mt-1">Manage mangrove species information</p>
-          </div>
-          
-          <div class="flex gap-3">
-            <!-- Search Bar -->
-            <div class="relative">
-              <input
-                v-model="searchQuery"
-                type="text"
-                placeholder="Search species..."
-                class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
-              />
-              <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-              </svg>
-            </div>
-            
-            <!-- Add Species Button -->
-            <button
-              @click="openAddModal"
-              class="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-              Add Species
-            </button>
-          </div>
+    <!-- Species Container -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <!-- View Toggle Controls -->
+      <div class="lg:col-span-4 flex justify-between items-center mb-4">
+        <div class="relative flex-1 max-w-xs">
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Search species..."
+            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none shadow-sm"
+          />
+          <svg class="absolute left-3 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
         </div>
+        
+        <button
+          @click="openAddModal"
+          class="ml-4 flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          Add Species
+        </button>
       </div>
 
-      <!-- Table -->
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
-            <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Species</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Scientific Name</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Family</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Habitat</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <tr v-for="species in filteredSpecies" :key="species.id" class="hover:bg-gray-50 transition-colors">
-              <!-- Species Info with Image -->
-              <td class="px-6 py-4">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-12 w-12">
-                    <img 
-                      v-if="species.image_url" 
-                      :src="species.image_url" 
-                      :alt="species.common_name"
-                      class="h-12 w-12 rounded-lg object-cover"
-                    />
-                    <div v-else class="h-12 w-12 rounded-lg bg-green-100 flex items-center justify-center">
-                      <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900">{{ species.common_name }}</div>
-                    <div class="text-sm text-gray-500">{{ species.local_name || 'N/A' }}</div>
-                  </div>
-                </div>
-              </td>
+      <!-- Species Cards Grid -->
+      <template v-if="filteredSpecies.length > 0">
+        <div 
+          v-for="species in filteredSpecies" 
+          :key="species.id"
+          class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+        >
+          <!-- Image -->
+          <div class="h-48 bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center overflow-hidden">
+            <img 
+              v-if="species.image_url" 
+              :src="species.image_url" 
+              :alt="species.name"
+              class="h-full w-full object-cover"
+            />
+            <div v-else class="flex flex-col items-center justify-center gap-2">
+              <svg class="w-16 h-16 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <span class="text-sm text-green-600 font-medium">No Image</span>
+            </div>
+          </div>
 
-              <!-- Scientific Name -->
-              <td class="px-6 py-4">
-                <div class="text-sm text-gray-900 italic">{{ species.scientific_name }}</div>
-              </td>
+          <!-- Content -->
+          <div class="p-5 flex-1 flex flex-col">
+            <!-- Title -->
+            <h3 class="text-lg font-bold text-gray-800 mb-1 line-clamp-2">{{ species.name }}</h3>
+            
+            <!-- Scientific Name -->
+            <p class="text-sm text-gray-500 italic mb-3 line-clamp-1">{{ species.scientif_name }}</p>
 
-              <!-- Family -->
-              <td class="px-6 py-4">
-                <div class="text-sm text-gray-900">{{ species.family || 'N/A' }}</div>
-              </td>
+            <!-- Description -->
+            <p class="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">{{ species.description }}</p>
 
-              <!-- Conservation Status -->
-              <td class="px-6 py-4">
-                <span 
-                  class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
-                  :class="{
-                    'bg-red-100 text-red-800': species.conservation_status === 'endangered',
-                    'bg-yellow-100 text-yellow-800': species.conservation_status === 'vulnerable',
-                    'bg-green-100 text-green-800': species.conservation_status === 'least_concern',
-                    'bg-gray-100 text-gray-800': !species.conservation_status
-                  }"
-                >
-                  {{ formatStatus(species.conservation_status) }}
-                </span>
-              </td>
+            <!-- Badge -->
+            <div class="mb-4 flex gap-2">
+              <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
+                🌿 Mangrove
+              </span>
+            </div>
 
-              <!-- Habitat -->
-              <td class="px-6 py-4">
-                <div class="text-sm text-gray-900">{{ species.habitat || 'N/A' }}</div>
-              </td>
-
-              <!-- Actions -->
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                <div class="flex items-center gap-2">
-                  <button 
-                    @click="viewSpecies(species)"
-                    class="text-blue-600 hover:text-blue-900 transition-colors"
-                    title="View Details"
-                  >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                    </svg>
-                  </button>
-                  <button 
-                    @click="editSpecies(species)"
-                    class="text-green-600 hover:text-green-900 transition-colors"
-                    title="Edit"
-                  >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                    </svg>
-                  </button>
-                  <button 
-                    @click="deleteSpecies(species)"
-                    class="text-red-600 hover:text-red-900 transition-colors"
-                    title="Delete"
-                  >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                    </svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- Empty State -->
-        <div v-if="filteredSpecies.length === 0" class="text-center py-12">
-          <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-          </svg>
-          <p class="text-gray-500">No species found</p>
+            <!-- Actions -->
+            <div class="flex gap-2 pt-4 border-t border-gray-100">
+              <button 
+                @click="viewSpecies(species)"
+                class="flex-1 flex items-center justify-center gap-2 text-blue-600 hover:text-blue-900 hover:bg-blue-50 font-medium py-2 px-3 rounded-lg transition-colors"
+                title="View Details"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+                View
+              </button>
+              <button 
+                @click="editSpecies(species)"
+                class="flex-1 flex items-center justify-center gap-2 text-green-600 hover:text-green-900 hover:bg-green-50 font-medium py-2 px-3 rounded-lg transition-colors"
+                title="Edit"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+                Edit
+              </button>
+              <button 
+                @click="deleteSpecies(species)"
+                class="flex-1 flex items-center justify-center gap-2 text-red-600 hover:text-red-900 hover:bg-red-50 font-medium py-2 px-3 rounded-lg transition-colors"
+                title="Delete"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
+      </template>
+
+      <!-- Empty State -->
+      <div v-else class="lg:col-span-4 text-center py-16">
+        <svg class="w-20 h-20 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+        </svg>
+        <p class="text-gray-500 text-lg">No species found</p>
       </div>
     </div>
 
@@ -202,13 +193,23 @@ onMounted(async () => {
 })
 
 async function loadSpecies() {
-  const { data, error } = await supabase
-    .from('species')
-    .select('*')
-    .order('common_name', { ascending: true })
+  try {
+    const { data, error } = await supabase
+      .from('species')
+      .select('*')
+      .order('name', { ascending: true })
 
-  if (!error && data) {
-    speciesList.value = data
+    if (error) {
+      console.error('❌ Error loading species:', error)
+      console.error('Error message:', error.message)
+      console.error('Error details:', error.details)
+    } else {
+      console.log('✅ Species loaded successfully:', data)
+      console.log('Total species:', data?.length || 0)
+      speciesList.value = data || []
+    }
+  } catch (err) {
+    console.error('❌ Exception loading species:', err)
   }
 }
 
@@ -217,10 +218,9 @@ const filteredSpecies = computed(() => {
   
   const query = searchQuery.value.toLowerCase()
   return speciesList.value.filter(species => 
-    species.common_name?.toLowerCase().includes(query) ||
-    species.scientific_name?.toLowerCase().includes(query) ||
-    species.local_name?.toLowerCase().includes(query) ||
-    species.family?.toLowerCase().includes(query)
+    species.name?.toLowerCase().includes(query) ||
+    species.scientif_name?.toLowerCase().includes(query) ||
+    species.description?.toLowerCase().includes(query)
   )
 })
 
@@ -250,7 +250,7 @@ function viewSpecies(species) {
 }
 
 async function deleteSpecies(species) {
-  if (!confirm(`Are you sure you want to delete "${species.common_name}"?`)) return
+  if (!confirm(`Are you sure you want to delete "${species.name}"?`)) return
 
   const { error } = await supabase
     .from('species')
