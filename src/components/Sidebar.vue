@@ -1,5 +1,5 @@
 <template>
-  <aside class="bg-gradient-to-b from-green-800 to-green-900 text-white w-72 min-h-screen p-6 flex flex-col shadow-2xl">
+  <aside class="fixed left-0 top-0 h-screen bg-gradient-to-b from-green-800 to-green-900 text-white w-72 p-6 flex flex-col shadow-2xl overflow-y-auto z-50">
     <!-- Admin Profile Section -->
     <div class="mb-8 pb-6 border-b border-green-700">
       <div class="flex items-center gap-4 mb-3">
