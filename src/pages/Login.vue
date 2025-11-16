@@ -1,14 +1,15 @@
 <template>
-  <div class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100">
     <!-- Logo/Brand Section -->
     <div class="mb-8 text-center">
-      <h1 class="text-3xl font-bold text-gray-800">AIGrove Admin</h1>
-      <p class="mt-2 text-sm text-gray-600">Welcome back! Please login to continue</p>
+      <img src="../assets/newLogo.png" alt="AIGrove Logo" class="h-20 mx-auto mb-4" />
+      <h1 class="text-3xl font-bold text-gray-800">AIgrove Admin</h1>
+      <p class="mt-2 text-sm text-gray-600">Welcome admin! Please login to continue</p>
     </div>
 
     <!-- Login Form -->
     <form @submit.prevent="login" class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md border border-gray-100">
-      <h2 class="mb-6 text-2xl font-bold text-gray-800">Sign In</h2>
+      <h2 class="text-center mb-6 text-2xl font-bold text-gray-800">Sign In as Admin</h2>
       
       <!-- Email Input -->
       <div class="mb-4">

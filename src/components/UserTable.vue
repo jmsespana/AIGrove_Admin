@@ -258,7 +258,7 @@ async function loadUsers() {
           .from('user_stats')
           .select('points')
           .eq('user_id', user.id)
-          .single()
+          .maybeSingle()
 
         return {
           ...user,
